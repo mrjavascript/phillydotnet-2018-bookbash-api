@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.0" last-position="0,0" last-zoom="0.5"
+	 default-schema="public" default-owner="postgres">
+<database name="new_database">
+</database>
+
+<schema name="public" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<schema name="book_bash" rect-visible="true" fill-color="#e1e1e1">
+	<role name="postgres"/>
+</schema>
+
+<sequence name="application_user_id_seq"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="book_bash"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="application_user">
+	<schema name="book_bash"/>
+	<role name="postgres"/>
+	<position x="1000" y="820"/>
+	<column name="user_id" not-null="true" sequence="book_bash.application_user_id_seq">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="email_address">
+		<type name="text" length="0"/>
+	</column>
+	<column name="username">
+		<type name="text" length="0"/>
+	</column>
+	<column name="password_hash">
+		<type name="text" length="0"/>
+	</column>
+	<column name="date_email_confirmed">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="date_created" default-value="now()">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="user_created">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="date_updated" default-value="now()">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="user_updated">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="date_disabled">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="pk_application_user" type="pk-constr" table="book_bash.application_user">
+		<columns names="user_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="security_role_id_seq"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="book_bash"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="security_role">
+	<schema name="book_bash"/>
+	<role name="postgres"/>
+	<position x="2700" y="820"/>
+	<column name="role_id" not-null="true" sequence="book_bash.security_role_id_seq">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="role_name">
+		<type name="text" length="0"/>
+	</column>
+	<column name="role_description">
+		<type name="text" length="0"/>
+	</column>
+	<column name="date_created" default-value="now()">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="user_created">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="date_updated" default-value="now()">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="user_updated">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="date_disabled">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="pk_security_role" type="pk-constr" table="book_bash.security_role">
+		<columns names="role_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="application_user_security_id_seq"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="book_bash"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="application_user_security">
+	<schema name="book_bash"/>
+	<role name="postgres"/>
+	<position x="1760" y="540"/>
+	<column name="record_id" not-null="true" sequence="book_bash.application_user_security_id_seq">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="user_id">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="role_id">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="date_created" default-value="now()">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="user_created">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="date_updated" default-value="now()">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="user_updated">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="date_disabled">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="pk_application_user_security" type="pk-constr" table="book_bash.application_user_security">
+		<columns names="record_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="book_id_seq"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="book_bash"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="book_backlog_id_seq"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="book_bash"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="backlog_status_id_seq"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="book_bash"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="book">
+	<schema name="book_bash"/>
+	<role name="postgres"/>
+	<position x="1320" y="1420"/>
+	<column name="book_id" not-null="true" sequence="book_bash.book_id_seq">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="isbn">
+		<type name="text" length="0"/>
+	</column>
+	<column name="book_title">
+		<type name="text" length="0"/>
+	</column>
+	<column name="author_name">
+		<type name="text" length="0"/>
+	</column>
+	<column name="date_published">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="number_of_pages">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="date_created" default-value="now()">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="user_created">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="date_updated" default-value="now()">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="user_updated">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="date_disabled">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="pk_book" type="pk-constr" table="book_bash.book">
+		<columns names="book_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="book_backlog">
+	<schema name="book_bash"/>
+	<role name="postgres"/>
+	<position x="1940" y="1100"/>
+	<column name="record_id" not-null="true" sequence="book_bash.book_backlog_id_seq">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="user_id">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="book_id">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="status_id">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="rating">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="date_created" default-value="now()">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="user_created">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="date_updated" default-value="now()">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="user_updated">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="date_disabled">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="pk_book_backlog" type="pk-constr" table="book_bash.book_backlog">
+		<columns names="record_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="backlog_status">
+	<schema name="book_bash"/>
+	<role name="postgres"/>
+	<position x="2440" y="1440"/>
+	<column name="type_id" not-null="true" sequence="book_bash.backlog_status_id_seq">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="type_name">
+		<type name="text" length="0"/>
+	</column>
+	<column name="type_description">
+		<type name="text" length="0"/>
+	</column>
+	<column name="date_created" default-value="now()">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="user_created">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="date_updated" default-value="now()">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="user_updated">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="date_disabled">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="pk_backlog_status" type="pk-constr" table="book_bash.backlog_status">
+		<columns names="type_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<constraint name="fk_user_id" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="book_bash.application_user" table="book_bash.application_user_security">
+	<columns names="user_id" ref-type="src-columns"/>
+	<columns names="user_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_role_id" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="book_bash.security_role" table="book_bash.application_user_security">
+	<columns names="role_id" ref-type="src-columns"/>
+	<columns names="role_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_book_id" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="book_bash.book" table="book_bash.book_backlog">
+	<columns names="book_id" ref-type="src-columns"/>
+	<columns names="book_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_status_id" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="book_bash.backlog_status" table="book_bash.book_backlog">
+	<columns names="status_id" ref-type="src-columns"/>
+	<columns names="type_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_user_id" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="book_bash.application_user" table="book_bash.book_backlog">
+	<columns names="user_id" ref-type="src-columns"/>
+	<columns names="user_id" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_application_user_security_application_user" type="relfk"
+	 src-table="book_bash.application_user_security"
+	 dst-table="book_bash.application_user"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_application_user_security_security_role" type="relfk"
+	 src-table="book_bash.application_user_security"
+	 dst-table="book_bash.security_role"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_book_backlog_book" type="relfk"
+	 src-table="book_bash.book_backlog"
+	 dst-table="book_bash.book"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_book_backlog_backlog_status" type="relfk"
+	 src-table="book_bash.book_backlog"
+	 dst-table="book_bash.backlog_status"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_book_backlog_application_user" type="relfk"
+	 src-table="book_bash.book_backlog"
+	 dst-table="book_bash.application_user"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>

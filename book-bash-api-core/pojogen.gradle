@@ -1,0 +1,107 @@
+configurations {
+    generator
+}
+
+ext {
+    pojogenGeneratedDir = file("src")
+    pojogenToBeDeletedDir = file("$pojogenGeneratedDir/to_be_deleted")
+}
+
+dependencies {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    generator "com.github.wwadge:hbnpojogen-maven-plugin:1.4.39"
+}
+
+// run the HbnPojogen Generator
+task runHbnPojoGenerator(type: JavaExec) {
+
+    doFirst {
+        pojogenToBeDeletedDir.mkdirs();
+    }
+
+    main = 'com.github.wwadge.hbnpojogen.HbnPojoGen'
+    classpath configurations.generator
+    args "../database/pojogen/hbnpojogen-config.xml"
+
+    doLast {
+        delete pojogenToBeDeletedDir
+        delete 'velocity.log'
+
+        /*
+            Force sequence generators to use allocation size of 1 for all entities.
+         */
+        ant.replaceregexp(match: "(@SequenceGenerator\\()", replace: "@SequenceGenerator(allocationSize = 1, ",
+                flags: 'g', byline: true) {
+            fileset(dir: "src/pojogen/org/melusky/bookbash/persistence/model/obj/bookBash/",
+                    includes: '*.java')
+        }
+        println("*** added allocation size of 1 to all entities ***")
+
+        /*
+            Replace with jackson annotations to fix circular references in JSON output.
+         */
+        ant.replaceregexp(match: "@ManyToOne", replace: "@JsonBackReference @ManyToOne",
+                flags: 'g', byline: true) {
+            fileset(dir: "src/pojogen/org/melusky/bookbash/persistence/model/obj/bookBash/",
+                    includes: '*.java')
+        }
+        ant.replaceregexp(match: "@OneToMany", replace: "@JsonManagedReference @OneToMany",
+                flags: 'g', byline: true) {
+            fileset(dir: "src/pojogen/org/melusky/bookbash/persistence/model/obj/bookBash/",
+                    includes: '*.java')
+        }
+        ant.replaceregexp(match: "@Entity", replace: "import com.fasterxml.jackson.annotation.JsonBackReference;"
+                + "\nimport com.fasterxml.jackson.annotation.JsonManagedReference;\n\n"
+                + "\nimport javax.persistence.*;\n\n"
+                + "@Entity",
+                flags: 'g', byline: true) {
+            fileset(dir: "src/pojogen/org/melusky/bookbash/persistence/model/obj/bookBash/",
+                    includes: '*.java')
+        }
+        println("*** added jackson annotations for all entities ***")
+
+        /*
+            Add method to set dateUpdated for all entities
+         */
+        ant.replaceregexp(match: "}\$", replace: "\t@PreUpdate\n" +
+                "\tpublic void preUpdate() {\n" +
+                "\t\tthis.dateUpdated = new Date();\n" +
+                "\t}\n" +
+                "}",
+                flags: 'g', byline: false) {
+            fileset(dir: "src/pojogen/org/melusky/bookbash/persistence/model/obj/bookBash/",
+                    includes: '*.java')
+        }
+        println("*** dateUpdated method added for all entities ***")
+
+        /*
+        	For new version of Hibernate/JPA, it is necessary to remove the catalog
+        */
+        ant.replace(token: "catalog = \"book_bash\", ",
+                value: "",
+                dir: "src/pojogen/org/melusky/bookbash/persistence")
+
+        ant.replace(token: "sequenceName = \"book_bash.",
+                value: "sequenceName = \"",
+                dir: "src/pojogen/org/melusky/bookbash/persistence")
+
+        /*
+            Fix up generation error - double period in package name
+        */
+        ant.replace(token: "org.melusky.bookbash.persistence.model.obj..",
+                value: "org.melusky.bookbash.persistence.model.obj.",
+                dir: "src/pojogen/org/melusky/bookbash/persistence")
+
+        /*
+            Fix up generation error - incorrect package name
+        */
+        ant.replace(token: "org.melusky.bookbash.persistence.model.obj.bookBash.",
+                value: "org.melusky.bookbash.persistence.model.obj.bookBash.",
+                dir: "src/pojogen/org/melusky/bookbash/persistence/factories/bookBash")
+        println("*** fixed incorrect package names ***")
+    }
+}
+

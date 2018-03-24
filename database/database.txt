@@ -1,0 +1,3 @@
+DATABASE:   book_bash
+USER:       book_bash_db_user
+PASSWORD:   PbNq7ZUBGRA3yGV

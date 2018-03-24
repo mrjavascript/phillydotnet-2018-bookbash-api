@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<appconfig>
+    <dbType>PostgreSQL</dbType>
+    <driver>org.postgresql.Driver</driver>
+    <jdbcConnectionString>jdbc:postgresql://localhost:5432/book_bash</jdbcConnectionString>
+    <databaseIP>localhost</databaseIP>
+    <databaseUsername>book_bash_db_user</databaseUsername>
+    <databasePassword>PbNq7ZUBGRA3yGV</databasePassword>
+    <databaseSchema>book_bash</databaseSchema>
+    <sourceTarget>src</sourceTarget>
+    <projectName>persistence</projectName>
+    <topLevel>org.melusky.bookbash</topLevel>
+    <libPath>libs</libPath>
+    <schemaStrategy>FULL</schemaStrategy>
+    <sourceFolderName>pojogen</sourceFolderName>
+    <resourceFolder>main/resources</resourceFolder>
+    <testFolderName>to_be_deleted</testFolderName>
+    <testResourceFolder>to_be_deleted</testResourceFolder>
+    <enableMockitoBeans>false</enableMockitoBeans>
+    <applicationContextFilename disableGeneration="true" />
+</appconfig>

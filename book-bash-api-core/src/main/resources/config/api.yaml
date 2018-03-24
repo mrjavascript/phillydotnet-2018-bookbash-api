@@ -1,0 +1,26 @@
+ENVIRONMENT_NAME: local
+
+#
+#   Third party APIs
+THIRD_PARTY:
+  WALMART:
+    PRODUCT_API_KEY: 7p7gmws8h3hfn9k2jp9ssf82
+  AMAZON:
+    WSDL_URL: http://webservices.amazon.com/AWSECommerceService/2013-08-01/AWSECommerceService.wsdl
+    ASSOCIATE_TAG: dniigroup-20
+    ACCESS_KEY_ID: AKIAJNW5SHWLRJPXDQLQ
+    SECRET_KEY: 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
+
+#
+#   DATABASE (local)
+MAIN_DATA_SOURCE:
+  DRIVER_CLASSNAME: org.postgresql.Driver
+  JDBC_URL: jdbc:postgresql://localhost/book_bash
+  USERNAME: book_bash_db_user
+  PASSWORD: PbNq7ZUBGRA3yGV
+
+#
+#   Swagger configuration
+SWAGGER:
+  HOST: bookbash.no-ip.org:5050
+  BASE: bookbash

@@ -1,0 +1,43 @@
+#
+#    -spring.profiles.active: tomcat,dev
+#    -spring.profiles.active: tomcat,staging
+#    -spring.profiles.active: tomcat,production
+
+---
+#
+#
+#  The following properties pertain to the dev environment
+spring:
+  profiles: dev
+
+EMAIL:
+  SUBJECT.PREFIX: dev
+
+MAIN_DATA_SOURCE:
+  DRIVER_CLASSNAME: org.postgresql.Driver
+  JDBC_URL: jdbc:postgresql://bookbash.no-ip.org:5433/book_bash
+  USERNAME: book_bash_db_user
+  PASSWORD: PbNq7ZUBGRA3yGV
+
+---
+#
+#
+#  The following properties pertain to the staging environment
+spring:
+  profiles: staging
+
+EMAIL:
+  SUBJECT.PREFIX: staging
+
+---
+#
+#
+#  The following properties pertain to the production environment
+spring:
+  profiles: production
+
+MAIN_DATA_SOURCE:
+  DRIVER_CLASSNAME: org.postgresql.Driver
+  JDBC_URL: jdbc:postgresql://40.71.216.43:5432/book_bash
+  USERNAME: book_bash_db_user
+  PASSWORD: PbNq7ZUBGRA3yGV

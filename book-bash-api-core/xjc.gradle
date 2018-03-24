@@ -1,0 +1,42 @@
+/*
+ * 	GENERATE SERVICE JAXB CLASSES (AWS)
+ */
+task wsimport {
+    System.setProperty('javax.xml.accessExternalSchema', 'file')
+}
+
+task genAwsServiceJaxb {
+
+    // Source code
+    ext.sourcesDir = "${buildDir}/generated-sources/"
+
+    // Classes
+    ext.classesDir = "${buildDir}/classes/"
+    outputs.dir classesDir
+
+    doLast() {
+        project.ant {
+
+            mkdir(dir: sourcesDir)
+            mkdir(dir: classesDir)
+
+            // Generate JAXB classes
+            taskdef name: 'wsimport', classname: 'com.sun.tools.ws.ant.WsImport', classpath: configurations.generate.asPath
+            wsimport binding: sourceSets.main.resources.srcDirs.toList()[0].getPath() + "/schema/aws/jaxws-bindings.xjb", wsdl: sourceSets.main.resources.srcDirs.toList()[0].getPath() + "/schema/aws/AWSECommerceService.wsdl", sourcedestdir: sourcesDir, package: 'org.melusky.bookbash.service.aws', xnocompile: true
+
+            // Compile
+            javac(destdir: classesDir, source: 1.7, target: 1.7, debug: true,
+                    debugLevel: "lines,vars,source",
+                    classpath: configurations.jaxb.asPath) {
+                src(path: sourcesDir)
+                include(name: "**/*.java")
+                include(name: "*.java")
+            }
+
+            // Copy classes from above
+            copy(todir: classesDir) {
+                fileset(dir: sourcesDir, erroronmissingdir: false) { exclude(name: "**/*.java") }
+            }
+        }
+    }
+}

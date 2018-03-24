@@ -1,0 +1,45 @@
+group 'book-bash-api'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+//sourceCompatibility = 1.5
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+}
+
+/*
+    Sub-project dependencies go here...
+ */
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+    }
+
+    version = '1.0'
+
+    jar {
+        manifest.attributes provider: 'DINI API'
+    }
+}
+
+project(':book-bash-excluded-tests') {
+    dependencies {
+
+        // Common project
+        compile project(':book-bash-api-core')
+    }
+}
+
+project(':book-bash-api-core') {
+}

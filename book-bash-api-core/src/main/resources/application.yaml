@@ -1,0 +1,18 @@
+jwt:
+  header: Authorization
+  secret: eVSVuAJBWVfbfinHOAqDHrziJgTT1Y4i
+
+server:
+  port: 8080
+
+spring:
+  resources:
+    chain:
+      enabled: true
+  batch:
+    job:
+      enabled: false  # Disable automatic batch processing (it's on demand)
+
+management:
+  security:
+    enabled: true # set to false to disable 'default' Spring Boot security
